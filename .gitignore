@@ -1,5 +1,6 @@
 .idea/*
 gradle/*
+gradlew*
 
 # Compiled class file
 *.class

@@ -1,11 +1,12 @@
 package com.mblagov;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
+/**
+ * A test for a <code>com.mblagov.Sample</code> class.
+ */
 public class SampleTest {
 
     @Test
