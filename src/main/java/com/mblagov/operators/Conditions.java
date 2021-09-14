@@ -1,7 +1,15 @@
 package com.mblagov.operators;
 
+/**
+ * Conditions samples.
+ */
 public class Conditions {
 
+    /**
+     * A main method for conditions run.
+     *
+     * @param args an argument array to be used in the method
+     */
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("Error, please add at least one argument");

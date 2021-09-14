@@ -4,8 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Loops samples.
+ */
 public class Loops {
 
+    /**
+     * A main method for loop samples.
+     *
+     * @param args an argument array to be used in the method
+     */
     public static void main(String[] args) {
         System.out.println("===== for loop =====");
         for (int i = 0; i < 10; i++) {
