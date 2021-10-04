@@ -1,6 +1,8 @@
-package com.mblagov;
+package com.pajehyk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.pajehyk.Sample;
 
 import org.junit.jupiter.api.Test;
 
