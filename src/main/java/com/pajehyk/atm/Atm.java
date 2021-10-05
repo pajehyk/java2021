@@ -1,54 +1,44 @@
 package com.pajehyk.atm;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Please put here your ATM code.
  */
 public class Atm {
-    private static int givenSum, numberOfBanknotes;
-    private static int[] banknotesValues; // Banknotes values
-    private static int[] banknotesMaxNumber; // max number of each banknote
-    private static int[] banknotesMaxNumberTemp;
-    private static int numberOfAnswers = 0; 
+    static int givenSum, numberOfBanknotes;
+    static ArrayList<Integer> banknotesValues = new ArrayList<>(); // Banknotes values
+    static int numberOfAnswers = 0; 
+    static ArrayList<ArrayList<Integer>> answerList = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-
         givenSum = scan.nextInt();
         numberOfBanknotes = scan.nextInt();
-        banknotesValues = new int[numberOfBanknotes];
-        banknotesMaxNumber = new int[numberOfBanknotes];
-        banknotesMaxNumberTemp = new int[numberOfBanknotes];
         for (int i=0; i<numberOfBanknotes; i++) {
-            banknotesValues[i] = scan.nextInt();
-            banknotesMaxNumber[i] = givenSum / banknotesValues[i];
-            banknotesMaxNumberTemp[i] = banknotesMaxNumber[i];
+            banknotesValues.add(scan.nextInt());
         }
-
-        AtmCompute(0, 0);        
-        System.out.println("answer is " + numberOfAnswers);
+       
+        atmCompute(true, 0, 0, new ArrayList<>());
+        System.out.println(answerList);
         scan.close();
     }
 
-    private static void AtmCompute(int k, int sum) {
-        if (k >= numberOfBanknotes) {
-            if (sum == givenSum) {
-                numberOfAnswers++;
-                for (int i=0; i<numberOfBanknotes; i++) {
-                    for (int j=0; j<banknotesMaxNumberTemp[i]; j++) {
-                        System.out.print(banknotesValues[i] + " ");
-                    }
-                }
-                System.out.println();
-            }
-            return;
+    public static void atmCompute(boolean firstRun, int recursiveSum, int currentBanknote, ArrayList<Integer> takenBanknotes) {
+        if (firstRun) {
+            answerList.add(new ArrayList<>());
+            answerList.get(0).add(0);
         }
-        while (banknotesMaxNumberTemp[k] >= 0) {
-            AtmCompute(k+1, sum + banknotesValues[k]*banknotesMaxNumberTemp[k]);
-
-            banknotesMaxNumberTemp[k]--;
-            for (int i=k+1; i<numberOfBanknotes; i++) {
-                banknotesMaxNumberTemp[i] = banknotesMaxNumber[i];
+        if (recursiveSum >= givenSum || currentBanknote >= numberOfBanknotes) {
+            if (recursiveSum == givenSum) {
+                answerList.add(new ArrayList<>(takenBanknotes));
+                answerList.get(0).set(0, answerList.get(0).get(0)+1);
             }
+        } else {
+            takenBanknotes.add(banknotesValues.get(currentBanknote));
+            atmCompute(false, recursiveSum + banknotesValues.get(currentBanknote), currentBanknote, takenBanknotes);
+            takenBanknotes.remove(takenBanknotes.size()-1);
+            atmCompute(false, recursiveSum, currentBanknote+1, takenBanknotes);
         }
     }
 }

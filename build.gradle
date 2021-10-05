@@ -5,7 +5,7 @@ plugins {
     id 'application'
 }
 
-group 'com.mblagov'
+group 'com.pajehyk'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -23,7 +23,7 @@ test {
 }
 
 application {
-    mainClass = 'com.mblagov.atm.Atm'
+    mainClass = 'com.pajehyk.atm.Atm'
 }
 
 run {
