@@ -1,14 +1,13 @@
 package com.pajehyk.atm;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 import org.junit.jupiter.api.Test;
 
+/**
+ * AtmTest class.
+ */
 public class AtmTest {
     @Test
     public  void testGetAnswer() {
