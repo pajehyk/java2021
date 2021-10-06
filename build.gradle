@@ -33,3 +33,8 @@ run {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
+
+task(runCollections, dependsOn: 'classes', type: JavaExec) {
+   main = 'com.pajehyk.collections.Collections'
+   classpath = sourceSets.main.runtimeClasspath
+}
