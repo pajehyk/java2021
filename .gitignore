@@ -1,4 +1,5 @@
 .classpath
+.DS_Store
 .project
 .settings/
 .idea/*
@@ -6,6 +7,7 @@ gradle/*
 gradlew*
 .gradle
 build
+output.txt
 
 # Compiled class file
 *.class

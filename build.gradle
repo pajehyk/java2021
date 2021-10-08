@@ -35,6 +35,11 @@ jacocoTestReport {
 }
 
 task(runCollections, dependsOn: 'classes', type: JavaExec) {
-   main = 'com.pajehyk.collections.Collections'
+   mainClass = 'com.pajehyk.collections.Collections'
    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runFiles, dependsOn: 'classes', type: JavaExec) {
+    mainClass = 'com.pajehyk.files.Files'
+    classpath = sourceSets.main.runtimeClasspath
 }
