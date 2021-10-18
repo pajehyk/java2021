@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Atm  class.
+ * Class for computing number of different combinations of given banknotes which in sum gives 
+ * certain number.
  */
-
 public class Atm {
     static int givenSum; 
     static int numberOfBanknotes;
     static ArrayList<Integer> banknotesValues = new ArrayList<>(); // Banknotes values
     static int numberOfAnswers = 0; 
     static ArrayList<ArrayList<Integer>> answerList = new ArrayList<>();
-    /**
-     * main() method.
-     */
 
+    /**
+     * Main method of Atm class, scans for input data and calls atmCompute() method.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         givenSum = scan.nextInt();
@@ -30,10 +32,15 @@ public class Atm {
         scan.close();
     }
 
-    /**
-     * atmCompute() method.
+    /** 
+     * Method that computes combination and stores them in takenBanknotes ArrayList. 
+     *
+     * @param firstRun          boolean parameter defining the first call of the method 
+     * @param recursiveSum      sum of numbers at the current iteration
+     * @param currentBanknote   index of a banknote at the current iteration
+     * @param takenBanknotes    values of baknotes that were taken in the combination at the 
+     *                          current iteration
      */
-
     public static void atmCompute(boolean firstRun, int recursiveSum, 
         int currentBanknote, ArrayList<Integer> takenBanknotes) {
         if (firstRun) {
