@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-/**
- * AtmTest class.
- */
 public class AtmTest {
     @Test
     public  void testGetAnswer() {
@@ -31,6 +28,5 @@ public class AtmTest {
         expectedArrayList.get(2).add(1);
 
         assertTrue(expectedArrayList.equals(Atm.answerList));
-        //assertTrue(true);
     }
 }

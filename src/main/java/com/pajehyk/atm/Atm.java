@@ -1,7 +1,13 @@
 package com.pajehyk.atm;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Class for computing number of different combinations of given banknotes which in sum gives 
@@ -20,17 +26,40 @@ public class Atm {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        givenSum = scan.nextInt();
-        numberOfBanknotes = scan.nextInt();
-        for (int i = 0; i < numberOfBanknotes; i++) {
-            banknotesValues.add(scan.nextInt());
-        }
-       
+        readInputData(System.in);
         atmCompute(true, 0, 0, new ArrayList<>());
-        System.out.println(answerList);
-        scan.close();
+        writeOutputData(System.out);
     }
+
+    public static void readInputData(InputStream input) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(input));
+        try {
+            String st = in.readLine();
+            givenSum = Integer.parseInt(st);
+            st = in.readLine();
+            int ind = 0;
+            for (int i = 0; i < st.length(); i++) {
+                if (st.charAt(i) == ' ') {
+                    banknotesValues.add(Integer.parseInt(st.substring(ind, i)));
+                    ind = i + 1;
+                    numberOfBanknotes++;
+                }
+            }
+            banknotesValues.add(Integer.parseInt(st.substring(ind, st.length())));
+            numberOfBanknotes++;
+        }
+        catch (IOException exc) {};
+    }
+
+    public static void writeOutputData(OutputStream output) {
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+        try {
+            out.write(answerList.toString());
+            out.flush();
+        }
+        catch (IOException exc) {};
+    }
+    
 
     /** 
      * Method that computes combination and stores them in takenBanknotes ArrayList. 
