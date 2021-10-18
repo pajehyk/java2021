@@ -2,11 +2,11 @@ package com.pajehyk.atm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +31,12 @@ public class Atm {
         writeOutputData(System.out);
     }
 
+    /**
+     * Method that reads input data and stores it in givenSum, 
+     * numberOfBanknotes and banknotesValues variables.
+     *
+     * @param input InputStream from which method is reading data
+     */
     public static void readInputData(InputStream input) {
         BufferedReader in = new BufferedReader(new InputStreamReader(input));
         try {
@@ -47,17 +53,24 @@ public class Atm {
             }
             banknotesValues.add(Integer.parseInt(st.substring(ind, st.length())));
             numberOfBanknotes++;
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
-        catch (IOException exc) {};
     }
 
+    /**
+     * Method that write output data into OutputStream.
+     *
+     * @param output OutputStream to which method writes
+     */
     public static void writeOutputData(OutputStream output) {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
         try {
             out.write(answerList.toString());
             out.flush();
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
-        catch (IOException exc) {};
     }
     
 
