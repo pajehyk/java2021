@@ -14,11 +14,11 @@ import java.util.ArrayList;
  * certain number.
  */
 public class Atm {
-    static int givenSum; 
-    static int numberOfBanknotes;
-    static ArrayList<Integer> banknotesValues = new ArrayList<>(); // Banknotes values
+    static long givenSum; 
+    static long numberOfBanknotes;
+    static ArrayList<Long> banknotesValues = new ArrayList<>(); // Banknotes values
     static int numberOfAnswers = 0; 
-    static ArrayList<ArrayList<Integer>> answerList = new ArrayList<>();
+    static ArrayList<ArrayList<Long>> answerList = new ArrayList<>();
 
     /**
      * Main method of Atm class, scans for input data and calls atmCompute() method.
@@ -26,9 +26,9 @@ public class Atm {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        readInputData(System.in);
+        readInputData();
         atmCompute(true, 0, 0, new ArrayList<>());
-        writeOutputData(System.out);
+        writeOutputData();
     }
 
     /**
@@ -37,22 +37,28 @@ public class Atm {
      *
      * @param input InputStream from which method is reading data
      */
-    public static void readInputData(InputStream input) {
-        BufferedReader in = new BufferedReader(new InputStreamReader(input));
+    public static void readInputData() {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         try {
             String st = in.readLine();
-            givenSum = Integer.parseInt(st);
+            givenSum = Long.parseLong(st);
             st = in.readLine();
             int ind = 0;
             for (int i = 0; i < st.length(); i++) {
                 if (st.charAt(i) == ' ') {
-                    banknotesValues.add(Integer.parseInt(st.substring(ind, i)));
-                    ind = i + 1;
-                    numberOfBanknotes++;
+                    long addedElement = Long.parseLong(st.substring(ind, i));
+                    if (!banknotesValues.contains(addedElement)) {
+                        banknotesValues.add(addedElement);
+                        ind = i + 1;
+                        numberOfBanknotes++;
+                    }
                 }
             }
-            banknotesValues.add(Integer.parseInt(st.substring(ind, st.length())));
-            numberOfBanknotes++;
+            long addedElement = Long.parseLong(st.substring(ind, st.length()));
+            if (!banknotesValues.contains(addedElement)) {
+                banknotesValues.add(addedElement);
+                numberOfBanknotes++;
+            }
         } catch (IOException exc) {
             exc.printStackTrace();
         }
@@ -63,7 +69,7 @@ public class Atm {
      *
      * @param output OutputStream to which method writes
      */
-    public static void writeOutputData(OutputStream output) {
+    public static void writeOutputData() {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
         try {
             out.write(answerList.toString());
@@ -83,11 +89,11 @@ public class Atm {
      * @param takenBanknotes    values of baknotes that were taken in the combination at the 
      *                          current iteration
      */
-    public static void atmCompute(boolean firstRun, int recursiveSum, 
-        int currentBanknote, ArrayList<Integer> takenBanknotes) {
+    public static void atmCompute(boolean firstRun, long recursiveSum, 
+        int currentBanknote, ArrayList<Long> takenBanknotes) {
         if (firstRun) {
             answerList.add(new ArrayList<>());
-            answerList.get(0).add(0);
+            answerList.get(0).add(0L);
         }
         if (recursiveSum >= givenSum || currentBanknote >= numberOfBanknotes) {
             if (recursiveSum == givenSum) {

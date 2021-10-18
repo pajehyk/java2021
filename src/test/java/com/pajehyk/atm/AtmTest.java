@@ -10,8 +10,8 @@ public class AtmTest {
     public  void testGetAnswer() {
         Atm.givenSum = 5;
         Atm.numberOfBanknotes = 2;
-        Atm.banknotesValues.add(3);
-        Atm.banknotesValues.add(1);
+        Atm.banknotesValues.add(3L);
+        Atm.banknotesValues.add(1L);
         Atm.atmCompute(true, 0, 0, new ArrayList<>());
         ArrayList<ArrayList<Integer>> expectedArrayList = new ArrayList<>();
         expectedArrayList.add(new ArrayList<>());
