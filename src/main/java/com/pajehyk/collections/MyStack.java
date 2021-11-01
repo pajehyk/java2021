@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class MyStack<T> extends Stack<T> {
     LinearList<T> list = new LinearList<>();
+
     public T peek() {
         return list.get(list.size() - 1);
     }

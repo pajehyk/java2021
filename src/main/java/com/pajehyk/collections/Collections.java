@@ -2,7 +2,7 @@ package com.pajehyk.collections;
 
 public class Collections {
     public static void main(String[] args) {
-        LinearList <Integer> list = new LinearList<>();
+        LinearList<Integer> list = new LinearList<>();
         list.add(1);
         list.add(2);
         System.out.println(list);
