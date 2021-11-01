@@ -2,16 +2,20 @@ package com.pajehyk.atm;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.FileInputStream;
+import java.io.File;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class AtmTest {
     @Test
     public void testGetAnswer() {
-        Atm.givenSum = 5;
-        Atm.numberOfBanknotes = 2;
-        Atm.banknotesValues.add(3L);
-        Atm.banknotesValues.add(1L);
+        try {
+            Atm.readInputData(new FileInputStream(new File("src/test/java/com/pajehyk/atm/test1.in")));
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
         Atm.atmCompute(true, 0, 0, new ArrayList<>());
         ArrayList<ArrayList<Long>> expectedArrayList = new ArrayList<>();
         expectedArrayList.add(new ArrayList<>());

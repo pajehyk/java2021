@@ -2,7 +2,9 @@ package com.pajehyk.atm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -22,9 +24,10 @@ public class Atm {
      * Main method of Atm class, scans for input data and calls atmCompute() method.
      *
      * @param args command line arguments
+     * @throws FileNotFoundException
      */
-    public static void main(String[] args) {
-        readInputData();
+    public static void main(String[] args) throws FileNotFoundException {
+        readInputData(System.in);
         atmCompute(true, 0, 0, new ArrayList<>());
         writeOutputData();
     }
@@ -32,10 +35,11 @@ public class Atm {
     /**
      * Method that reads input data and stores it in givenSum, 
      * numberOfBanknotes and banknotesValues variables.
-     *
+     * 
+     * @param fis InputStream that BufferedReader reads from
      */
-    public static void readInputData() {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    public static void readInputData(InputStream fis) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
         try {
             String st = in.readLine();
             givenSum = Long.parseLong(st);
