@@ -1,6 +1,14 @@
 package com.pajehyk.collections;
 
+/**
+ * Class with main() method for demonstrating work of collections package.
+ */
 public class Collections {
+    /**
+     * main() method, showing results of work of LinearList, MyStack classes.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         LinearList<Integer> list = new LinearList<>();
         list.add(1);
