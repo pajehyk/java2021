@@ -8,6 +8,7 @@ gradlew*
 .gradle
 build
 output.txt
+bin/
 
 # Compiled class file
 *.class
