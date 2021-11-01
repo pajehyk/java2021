@@ -10,13 +10,18 @@ import java.lang.UnsupportedOperationException;
 public class LinearList<T> implements List<T>{
     private Object[] contentArray;
     private int size;
+    private int arraySize;
 
     public LinearList() {
         contentArray = new Object[0];
+        arraySize = 0;
+        size = 0;
     }
     @Override
     public boolean add(T e) {
-        contentArray = Arrays.copyOf(contentArray, size + 1);
+        if (size + 1 > arraySize) {
+            resize();
+        }
         contentArray[size] = e;
         size++;
         return true;
@@ -35,7 +40,9 @@ public class LinearList<T> implements List<T>{
 
     @Override
     public void add(int index, T element) {
-        contentArray = Arrays.copyOf(contentArray, size + 1);
+        if (size + 1 > arraySize) {
+            resize();
+        }
         for (int i = index+1; i < size + 1; i++) {
             contentArray[i] = contentArray[i-1];
         }
@@ -75,6 +82,17 @@ public class LinearList<T> implements List<T>{
         }
         returningString += contentArray[size - 1] + "}";
         return returningString;
+    }
+
+    private void resize() {
+        int newArraySize;
+        if (arraySize == 0) {
+            newArraySize = 1;
+        } else {
+            newArraySize = arraySize * 2;
+        }
+        contentArray = Arrays.copyOf(contentArray, newArraySize);
+        arraySize = newArraySize;
     }
 
     @Override
