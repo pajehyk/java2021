@@ -33,7 +33,6 @@ public class Atm {
      * Method that reads input data and stores it in givenSum, 
      * numberOfBanknotes and banknotesValues variables.
      *
-     * @param input InputStream from which method is reading data
      */
     public static void readInputData() {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -65,7 +64,6 @@ public class Atm {
     /**
      * Method that write output data into OutputStream.
      *
-     * @param output OutputStream to which method writes
      */
     public static void writeOutputData() {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
