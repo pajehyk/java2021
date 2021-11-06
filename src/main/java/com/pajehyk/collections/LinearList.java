@@ -63,13 +63,18 @@ public class LinearList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
+        T erasedElement;
+        T savedElement;
         if (size + 1 > arraySize) {
             resize();
         }
-        for (int i = index + 1; i < size + 1; i++) {
-            contentArray[i] = contentArray[i - 1];
-        }
+        erasedElement = (T)contentArray[index];
         contentArray[index] = element;
+        for (int i = index; i < size; i++) {
+            savedElement = (T)contentArray[i+1];
+            contentArray[i+1] = erasedElement;
+            erasedElement =  savedElement;
+        }
         size++;
     }
 
