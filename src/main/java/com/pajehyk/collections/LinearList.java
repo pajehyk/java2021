@@ -24,6 +24,12 @@ public class LinearList<T> implements List<T> {
         size = 0;
     }
 
+    public LinearList(T[] array) {
+        arraySize = array.length;
+        size = array.length;
+        contentArray = Arrays.copyOf(array, array.length);
+    }
+
     /**
      * resize() method changes size of an containing array by multiplying it by 2.
      */
@@ -137,6 +143,21 @@ public class LinearList<T> implements List<T> {
         return returningString;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass().equals(this.getClass())) {
+            LinearList<T> objectList = (LinearList<T>)o;
+            if (this.size == objectList.size) {
+                for (int i=0; i < size; i++) {
+                    if (this.get(i) != objectList.get(i)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public boolean contains(Object o) {
         throw new UnsupportedOperationException();
