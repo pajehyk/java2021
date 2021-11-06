@@ -6,8 +6,11 @@ import java.util.Stack;
  * Generic class MyStack is a custom stack-based structure, extending java.util.Stack class.
  */
 public class MyStack<T> extends Stack<T> {
-    LinearList<T> list = new LinearList<>();
+    private LinearList<T> list;
 
+    public MyStack(T[] array) {
+        list = new LinearList<T>(array);
+    }
     /**
      * peek() method returns top element of the stack and does not edit instance of an object.
      */
