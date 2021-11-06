@@ -11,6 +11,7 @@ public class MyStack<T> extends Stack<T> {
     public MyStack(T[] array) {
         list = new LinearList<T>(array);
     }
+
     /**
      * peek() method returns top element of the stack and does not edit instance of an object.
      */

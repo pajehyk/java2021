@@ -24,6 +24,11 @@ public class LinearList<T> implements List<T> {
         size = 0;
     }
 
+    /**
+     * Constructor with array argument.
+     *
+     * @param array generic array that fills contentArray
+     */
     public LinearList(T[] array) {
         arraySize = array.length;
         size = array.length;
@@ -68,11 +73,11 @@ public class LinearList<T> implements List<T> {
         if (size + 1 > arraySize) {
             resize();
         }
-        erasedElement = (T)contentArray[index];
+        erasedElement = (T) contentArray[index];
         contentArray[index] = element;
         for (int i = index; i < size; i++) {
-            savedElement = (T)contentArray[i+1];
-            contentArray[i+1] = erasedElement;
+            savedElement = (T) contentArray[i + 1];
+            contentArray[i + 1] = erasedElement;
             erasedElement =  savedElement;
         }
         size++;
@@ -151,9 +156,9 @@ public class LinearList<T> implements List<T> {
     @Override
     public boolean equals(Object o) {
         if (o.getClass().equals(this.getClass())) {
-            LinearList<T> objectList = (LinearList<T>)o;
+            LinearList<T> objectList = (LinearList<T>) o;
             if (this.size == objectList.size) {
-                for (int i=0; i < size; i++) {
+                for (int i = 0; i < size; i++) {
                     if (this.get(i) != objectList.get(i)) {
                         return false;
                     }
@@ -163,6 +168,7 @@ public class LinearList<T> implements List<T> {
         }
         return false;
     }
+
     @Override
     public boolean contains(Object o) {
         throw new UnsupportedOperationException();
