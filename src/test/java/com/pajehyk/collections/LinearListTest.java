@@ -3,24 +3,15 @@ package com.pajehyk.collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test for testing add(element), add(index, element), indexOf(object), size() and equals(object).
+ * Test for testing add(element), add(index, element), indexOf(object), size(), isEmpty(),
+ * remove(index) and equals(object).
  */
 public class LinearListTest {
-    private Integer[] array;
-    private LinearList<Integer> list;
-
-    @BeforeEach
-    public void initMethod() {
-        array = new Integer[5];
-        for (int i = 0; i < 5; i++) {
-            array[i] = i;
-        }
-        list = new LinearList<Integer>(array);
-    }
+    private Integer[] array = {0, 1, 2, 3, 4};
+    private LinearList<Integer> list = new LinearList<Integer>(array);
 
     @Test
     public void addTest() {
@@ -70,5 +61,19 @@ public class LinearListTest {
         }
         LinearList<Integer> anotherList = new LinearList<Integer>(anotherArray);
         assertTrue(list.equals(anotherList));
+    }
+
+    @Test
+    public void isEmptyTest() {
+        boolean isEmpty = list.isEmpty();
+        assertTrue(!isEmpty);
+    }
+
+    @Test
+    public void removeTest() {
+        Integer[] anotherArray = {0, 1, 2, 3};
+        LinearList<Integer> anotherList = new LinearList<Integer>(anotherArray);
+        list.remove(4);
+        assertEquals(list, anotherList);
     }
 }
