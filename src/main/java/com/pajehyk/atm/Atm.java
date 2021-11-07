@@ -26,7 +26,7 @@ public class Atm {
      * @param args command line arguments
      * @throws FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void run() throws FileNotFoundException {
         readInputData(System.in);
         atmCompute(true, 0, 0, new ArrayList<>());
         writeOutputData();
