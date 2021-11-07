@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Files class contains main() method that should recieve two arguments from command line 
+ * Files class contains run() method that should recieve two arguments from command line 
  * which are chosen directory and output file in which the program writes paths of files,
  * containing in the directory.
  */
@@ -16,7 +16,7 @@ public class Files {
     private static File outputPathFile;
 
     /**
-     * main() method that recieves path of directory and path of output file and write down 
+     * run() method that recieves path of directory and path of output file and write down 
      * all files that contains in the directory into output file.
      *
      * @param args                          command line arguments
