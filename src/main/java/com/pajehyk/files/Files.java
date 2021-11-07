@@ -21,7 +21,7 @@ public class Files {
      * @param args                          command line arguments
      * @throws InvalidArgumentsException    throws exception in case of wrong set of arguments    
      */
-    public static void main(String[] args) throws InvalidArgumentsException {
+    public static void run(String[] args) throws InvalidArgumentsException {
         if (args.length != 2) { 
             throw new InvalidArgumentsException();
         }
