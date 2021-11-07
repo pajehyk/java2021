@@ -23,7 +23,7 @@ test {
 }
 
 application {
-    mainClass = 'com.pajehyk.atm.Atm'
+    mainClass = 'com.pajehyk.Main'
 }
 
 run {
