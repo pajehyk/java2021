@@ -2,6 +2,7 @@ package com.pajehyk.files;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Files class contains main() method that should recieve two arguments from command line 
@@ -29,11 +30,12 @@ public class Files {
         outputPath = args[1];
         directoryFile = new File(directoryPath);
         outputPathFile = new File(outputPath);
+        writeToFile("", outputPathFile, false);
         printDirectoryTree(directoryFile, outputPathFile);
     }
 
     /**
-     * recursive method that walk all over the directory tree and write down files' paths to the
+     * recursive method that scans the directory tree and write down files' paths to the
      * output file.
      *
      * @param directoryFile     path of the directory
@@ -41,19 +43,21 @@ public class Files {
      */
     public static void printDirectoryTree(File directoryFile, File outputPathFile) {
         File[] files = directoryFile.listFiles();
-        if (files == null || files.length == 0) {
-            try { 
-                FileOutputStream fos = new FileOutputStream(outputPathFile, true);
-                String currentDirectoryPath = directoryFile.getPath() + '\n';
-                fos.write(currentDirectoryPath.getBytes());
-                fos.close();
-            } catch (Throwable exc) {
-                exc.printStackTrace();
-            }
-        } else {
+        if (!(files == null || files.length == 0)) {
             for (File file : files) {
                 printDirectoryTree(file, outputPathFile);
             }
+        }
+        writeToFile(directoryFile.getPath() + '\n', outputPathFile, true);
+    }
+    
+    public static void writeToFile(String stringToWrite, File outputFile, boolean override) {
+        try {
+            FileOutputStream fos = new FileOutputStream(outputPathFile, override);
+            fos.write(stringToWrite.getBytes());
+            fos.close();
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
     }
 }
