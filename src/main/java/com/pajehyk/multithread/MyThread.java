@@ -1,35 +1,40 @@
 package com.pajehyk.multithread;
 
-import java.io.IOException;
-
-import com.pajehyk.mio.MyInputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class MyThread implements Runnable {
     public Thread thread;
-    private MyInputStream myInputStream;
+    private Scanner scanner;
+    private PrintStream printStream;
 
-    public MyThread(MyInputStream myInputStream, String name) {
-        this.myInputStream = myInputStream;
+    public MyThread(Scanner scanner, PrintStream printStream, String name) {
+        this.scanner = scanner;
+        this.printStream = printStream;
         thread = new Thread(this, name);
     }
 
-    public static MyThread createAndStartThread(MyInputStream myInputStream, String name) {
-        MyThread myThread = new MyThread(myInputStream, name);
+    public static MyThread createAndStartThread(Scanner scanner, PrintStream printStream, String name) {
+        MyThread myThread = new MyThread(scanner, printStream, name);
         myThread.thread.start();
         return myThread;
     }
 
     public void run() {
-        try {
-            int a = myInputStream.readInt();
-            int b = myInputStream.readInt();
-            System.out.println(a);
-            System.out.println(b);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        double[] array = new double[5];
+        double[] tans = new double[5];
+        synchronized(scanner) {
+            for (int i = 0; i < 5; i++) {
+                array[i] = scanner.nextDouble();
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            tans[i] = Math.tan(array[i]);
+        }
+        synchronized(printStream) {
+            for (int i = 0; i < 5; i++) {
+                printStream.print(tans[i] + " ");
+            }
         }
     }
 }
