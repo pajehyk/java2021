@@ -7,6 +7,7 @@ public class MyThread implements Runnable {
     public Thread thread;
     private Scanner scanner;
     private PrintStream printStream;
+    private static boolean running = true;
 
     public MyThread(Scanner scanner, PrintStream printStream, String name) {
         this.scanner = scanner;
@@ -21,19 +22,20 @@ public class MyThread implements Runnable {
     }
 
     public void run() {
-        double[] array = new double[5];
-        double[] tans = new double[5];
-        synchronized(scanner) {
-            for (int i = 0; i < 5; i++) {
-                array[i] = scanner.nextDouble();
+        while (running) {
+            double a;
+            double tan;
+            synchronized(scanner) {
+                if (scanner.hasNextDouble()) {
+                    a = scanner.nextDouble();
+                } else {
+                    running = false;
+                    break;
+                }
             }
-        }
-        for (int i = 0; i < 5; i++) {
-            tans[i] = Math.tan(array[i]);
-        }
-        synchronized(printStream) {
-            for (int i = 0; i < 5; i++) {
-                printStream.print(tans[i] + " ");
+            tan = Math.tan(a);
+            synchronized(scanner) {
+                printStream.println(tan + Thread.currentThread().getName());
             }
         }
     }

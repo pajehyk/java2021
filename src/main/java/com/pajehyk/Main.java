@@ -12,6 +12,6 @@ public class Main {
         Scanner scanner = new Scanner(new File("src/test/resources/input1000000.txt"));
         PrintStream printStream = new PrintStream(new File("src/main/resources/outputFile.txt"));
         Compute compute = new Compute();
-        compute.ComputeWithThreads(scanner, printStream, 4);
+        compute.ComputeWithThreads(scanner, printStream, 2);
     }
 }
