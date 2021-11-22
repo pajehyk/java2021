@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.lang.IndexOutOfBoundsException;
 
 /**
  * LinearList is a generic class that implements java.util.List class.
@@ -68,18 +69,11 @@ public class LinearList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
-        T erasedElement;
-        T savedElement;
         if (size + 1 > arraySize) {
             resize();
         }
-        erasedElement = (T) contentArray[index];
+        System.arraycopy(contentArray, index, contentArray, index+1, size - index);
         contentArray[index] = element;
-        for (int i = index; i < size; i++) {
-            savedElement = (T) contentArray[i + 1];
-            contentArray[i + 1] = erasedElement;
-            erasedElement =  savedElement;
-        }
         size++;
     }
 
@@ -88,11 +82,7 @@ public class LinearList<T> implements List<T> {
      */
     @Override
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == 0;
     }
 
     /**
@@ -100,6 +90,9 @@ public class LinearList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         return (T) contentArray[index];
     }
 
@@ -108,11 +101,11 @@ public class LinearList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        final T e = (T) contentArray[index];
-        for (int i = index; i < size - 1; i++) {
-            contentArray[i] = contentArray[i + 1];
+        if (index >= size) {
+            throw new IndexOutOfBoundsException();
         }
-        contentArray = Arrays.copyOf(contentArray, size - 1);
+        T e = (T) contentArray[index];
+        System.arraycopy(contentArray, index+1, contentArray, index, size - index - 1);
         size--;
         return e;
     }
