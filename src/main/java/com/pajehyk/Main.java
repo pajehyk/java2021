@@ -8,7 +8,7 @@ public class Main {
         try {
             Files.run(args);
         } catch (InvalidArgumentsException exc) {
-            System.out.println("There must be two arguments.");
+            System.out.println(exc.getMessage());
         }
     }
 }

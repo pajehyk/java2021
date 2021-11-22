@@ -24,7 +24,7 @@ public class Files {
      */
     public static void run(String[] args) throws InvalidArgumentsException {
         if (args.length != 2) { 
-            throw new InvalidArgumentsException();
+            throw new InvalidArgumentsException("There must be 2 arguments.");
         }
         directoryPath = args[0];
         outputPath = args[1];
@@ -52,10 +52,8 @@ public class Files {
     }
     
     public static void writeToFile(String stringToWrite, File outputFile, boolean override) {
-        try {
-            FileOutputStream fos = new FileOutputStream(outputPathFile, override);
+        try (FileOutputStream fos = new FileOutputStream(outputPathFile, override)) {
             fos.write(stringToWrite.getBytes());
-            fos.close();
         } catch (IOException exc) {
             exc.printStackTrace();
         }

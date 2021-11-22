@@ -13,7 +13,7 @@ public class FilesTest {
     public void runTest() {
         String expectedFilePath = "src/test/resources/expectedOutput.txt";
         String actualFilePath = "src/test/resources/actualOutput.txt";
-        String[] args = {"src/test/java/com/pajehyk/files", "src/test/resources/actualOutput.txt"};
+        String[] args = {"src/test/resources/predefined-file-structure", "src/test/resources/actualOutput.txt"};
         try {
             Files.run(args);
             File expectedFile = new File(expectedFilePath);
@@ -21,9 +21,9 @@ public class FilesTest {
             assertEquals(FileUtils.readFileToString(expectedFile, "utf-8"), 
                         FileUtils.readFileToString(actualFile, "utf-8"));
         } catch (InvalidArgumentsException e) {
-            System.out.println("There must be two arguments");
+            System.out.println(e.getMessage());
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
