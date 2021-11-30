@@ -1,15 +1,14 @@
 package com.pajehyk;
 
-import java.io.FileNotFoundException;
-
-import com.pajehyk.atm.Atm;
+import com.pajehyk.files.Files;
+import com.pajehyk.files.InvalidArgumentsException;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            Atm.run();
-        } catch(FileNotFoundException exc) {
-            System.out.println("File not found");
+            Files.run(args);
+        } catch (InvalidArgumentsException exc) {
+            System.out.println(exc.getMessage());
         }
     }
 }

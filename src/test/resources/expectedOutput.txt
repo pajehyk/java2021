@@ -1,0 +1,6 @@
+src/test/resources/predefined-file-structure/folder2/file1
+src/test/resources/predefined-file-structure/folder2
+src/test/resources/predefined-file-structure/folder1/file2
+src/test/resources/predefined-file-structure/folder1/file1
+src/test/resources/predefined-file-structure/folder1
+src/test/resources/predefined-file-structure
