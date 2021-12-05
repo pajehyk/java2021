@@ -11,11 +11,13 @@ public class WriteToFileRunnable implements Runnable {
     private int curPos = 0;
     private Thread readingThread;
 
-    public WriteToFileRunnable(String filePath, ArrayList<Double> valuesArray, Thread readingThread) {
+    public WriteToFileRunnable(String filePath, ArrayList<Double> valuesArray, 
+        Thread readingThread) {
         this.file = new File(filePath);
         this.valuesArray = valuesArray;
         this.readingThread = readingThread;
     }
+
     public void run() {
         try (PrintStream ps = new PrintStream(file)) {
             while (readingThread.isAlive() || curPos < valuesArray.size()) {

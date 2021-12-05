@@ -8,11 +8,13 @@ public class ComputeValuesRunnable implements Runnable {
     private Thread readingThread;
     private int curPos = 0;
 
-    public ComputeValuesRunnable(ArrayList<Double> contentArray, ArrayList<Double> valuesArray, Thread readingThread) {
+    public ComputeValuesRunnable(ArrayList<Double> contentArray, ArrayList<Double> valuesArray, 
+        Thread readingThread) {
         this.contentArray = contentArray;
         this.valuesArray = valuesArray;
         this.readingThread = readingThread;
     }
+
     public void run() {
         while (curPos < contentArray.size() || readingThread.isAlive()) {
             if (curPos < contentArray.size()) {

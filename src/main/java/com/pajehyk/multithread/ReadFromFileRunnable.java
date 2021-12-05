@@ -10,19 +10,21 @@ import java.util.Scanner;
 public class ReadFromFileRunnable implements Runnable {
     private File file;
     private ArrayList<Double> contentArray;
+
     public ReadFromFileRunnable(String filePath, ArrayList<Double> contentArray) {
         this.file = new File(filePath);
         this.contentArray = contentArray;
     }
+
     public void run() {
-        try(FileInputStream fis = new FileInputStream(file); Scanner scan = new Scanner(fis)) {
-            while(scan.hasNextDouble()) {
+        try (FileInputStream fis = new FileInputStream(file); Scanner scan = new Scanner(fis)) {
+            while (scan.hasNextDouble()) {
                 double number = scan.nextDouble();
                 contentArray.add(number);
             }
-        } catch(FileNotFoundException exc) {
+        } catch (FileNotFoundException exc) {
             System.out.println(exc.getMessage());
-        } catch(IOException exc) {
+        } catch (IOException exc) {
             System.out.println(exc.getMessage());
         }
     }
