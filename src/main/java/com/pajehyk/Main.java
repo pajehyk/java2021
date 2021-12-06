@@ -1,21 +1,18 @@
 package com.pajehyk;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.pajehyk.streamapi.StreamAPI;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        final long startTime = System.currentTimeMillis();
-        String inputFilePath = "src/test/resources/input10000.txt";
-        String expectedOutputFilePath = "src/test/resources/expectedOutput10000.txt";
-        Scanner scan = new Scanner(new File(inputFilePath));
-        PrintStream ps = new PrintStream(new File(expectedOutputFilePath));
-        for (int i = 0; i < 10000; i++) {
-            ps.println(Math.tan(scan.nextDouble()));
-        }
-        final long endTime = System.currentTimeMillis();
-        System.out.println("Execution time: " + (endTime - startTime));
+    public static void main(String[] args) throws IOException {
+        StreamAPI.countToFile("src/main/resources/pin.txt", "src/main/resources/counts.txt");
+        StreamAPI.writeToFiles("src/main/resources/pin.txt", "/users/pajehyk/directory");
     }   
 }
