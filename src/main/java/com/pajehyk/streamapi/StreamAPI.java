@@ -1,7 +1,6 @@
 package com.pajehyk.streamapi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 public class StreamAPI {
@@ -51,34 +49,22 @@ public class StreamAPI {
     }
 
     public static void writeToFiles(String inputPathString, String outputDirectoryPathString) {
-        List<CompletableFuture<Path>> list = new ArrayList<CompletableFuture<Path>>(); 
+        List<CompletableFuture<File>> list = new ArrayList<CompletableFuture<File>>(); 
         for (String key: hashMap.keySet()) {
+            String stringPath = outputDirectoryPathString + "/" + key;
             list.add(CompletableFuture.supplyAsync(() -> {
-                Path path = null;
-                try {
-                    path =  Files.createFile(Paths.get(outputDirectoryPathString + "/" + key));
-                } catch(IOException exc) {
-                    System.out.println(exc.getMessage());
+                File file = new File(stringPath);
+                try(PrintStream ps = new PrintStream(file)) {
+                    Boolean bool = file.createNewFile();
+                    for (int i = 0; i < hashMap.get(key); i++) {
+                        ps.println(key);
+                    }
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
-                return path;
+                return file;
             }));
         }
-        try {
-            for (CompletableFuture<Path> cf: list) {
-                if (cf.get() != null) {
-                    Path path = cf.get();
-                    PrintStream ps = new PrintStream(path.toFile());
-                    for (int i = 0; i < hashMap.get(path.getFileName().toString()); i++) {
-                        ps.print(path.getFileName().toString() + " ");
-                    }
-                }
-            }
-        } catch(InterruptedException exc) {
-            System.out.println(exc.getMessage());
-        } catch(ExecutionException exc) {
-            System.out.println(exc.getMessage());
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        CompletableFuture.allOf(list.toArray(new CompletableFuture<?>[0])).join();
     }
 }
