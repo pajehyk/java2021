@@ -1,36 +1,68 @@
 package com.pajehyk.multithread;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Multithread {
     private String inputFilePath;
     private String outputFilePath;
+    private ArrayList<Double> contentArray = new ArrayList<>();
+    private ArrayList<Double> valuesArray = new ArrayList<>();
+    private Object[] values;
 
     public Multithread(String inputFilePath, String outputFilePath) {
         this.inputFilePath = inputFilePath;
         this.outputFilePath = outputFilePath;
     }
-    public void start() {
+
+    public void compute(int nThreads) throws InterruptedException, ExecutionException {
         final long startTime = System.currentTimeMillis();
-        ArrayList<Double> contentArray = new ArrayList<>();
-        ArrayList<Double> valuesArray = new ArrayList<>();
-        Thread thread1 = new Thread(new ReadFromFileRunnable(inputFilePath, 
-            contentArray));
-        Thread thread2 = new Thread(new ComputeValuesRunnable(contentArray, 
-            valuesArray, thread1));
-        Thread thread3 = new Thread(new WriteToFileRunnable(outputFilePath, 
-            valuesArray, thread2));
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        readFromFile(inputFilePath, contentArray);
+        computeValues(contentArray, valuesArray, nThreads);
+        writeToFile(outputFilePath, valuesArray);
         final long endTime = System.currentTimeMillis();
-        System.out.println("Execution time: " + (endTime - startTime));
+        System.out.println(endTime - startTime);
+    }
+
+    public void readFromFile(String filePath, ArrayList<Double> contentArray) {
+        try (Scanner scan = new Scanner(new FileInputStream(new File(filePath)))) {
+            while (scan.hasNextDouble()) {
+                double number = scan.nextDouble();
+                contentArray.add(number);
+            }
+        } catch (FileNotFoundException exc) {
+            System.out.println(exc.getMessage());
+        }   
+    }
+
+    public void computeValues(ArrayList<Double> contentArray, ArrayList<Double> valuesArray, int nThreads) throws InterruptedException, ExecutionException {
+        ExecutorService executor = Executors.newFixedThreadPool(nThreads);
+        int size = contentArray.size();
+        values = new Object[size];
+        for (int i = 0; i < size; i++) {
+            int j = i;
+            values[i] = executor.submit(() -> {
+                return Math.tan(contentArray.get(j));
+            });
+        }
+        executor.shutdown();
+    }
+
+    public void writeToFile(String filePath, ArrayList<Double> valuesArray) throws InterruptedException, ExecutionException {
+        try (PrintStream ps = new PrintStream(new File(filePath))) {
+            for (int i = 0; i < contentArray.size(); i++) {
+                ps.println(((Future<Double>) values[i]).get());
+            }
+        } catch (FileNotFoundException exc) {
+            System.out.println(exc.getMessage());
+        }
     }
 }

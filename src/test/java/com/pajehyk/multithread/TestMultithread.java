@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,8 @@ public class TestMultithread {
     Multithread mt = new Multithread(inputFilePath, actualOutputFilePath);
 
     @Test
-    public void testStart() throws IOException {
-        mt.start();
+    public void testStart() throws IOException, InterruptedException, ExecutionException {
+        mt.compute(2);
         assertEquals(FileUtils.readFileToString(new File(actualOutputFilePath), "utf-8"),
             FileUtils.readFileToString(new File(expectedOutputFilePath), "utf-8"));
     }
